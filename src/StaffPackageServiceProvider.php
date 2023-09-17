@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Nova\Nova;
 use ReesMcIvor\Staff\Nova\Staff;
+use ReesMcIvor\Staff\View\Components\Grid;
 
 class StaffPackageServiceProvider extends ServiceProvider
 {
@@ -20,9 +21,11 @@ class StaffPackageServiceProvider extends ServiceProvider
             ], 'laravel-staff');
         }
 
-        $this->loadViewsFrom(__DIR__.'/resources/views', 'laravel-staff');
+        $this->loadViewsFrom(__DIR__.'/resources/views', 'staff');
 
-        Blade::componentNamespace('ReesMcIvor\\Staff\\View\\Components', 'staff');
+        $this->loadViewComponentsAs('staff', [
+            Grid::class
+        ]);
 
         Nova::resources([
             Staff::class,
