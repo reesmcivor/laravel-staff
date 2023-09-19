@@ -15,14 +15,14 @@ class GridTest extends TestCase
     /** @test */
     public function a_grid_of_users_can_be_displayed()
     {
-        $role = Role::factory(['name' => 'Customer'])->create();
+        $role = Role::factory(['id' => 3, 'name' => 'Customer'])->create();
         $user = User::factory(['role_id' => $role->id, 'name' => 'Customer Name'])->create();
 
-        $role = Role::factory(['name' => 'Staff'])->create();
-        $user = User::factory(['role_id' => $role->id, 'name' => 'Staff Name'])->create();
+        $role2 = Role::factory(['id' => 2, 'name' => 'Staff'])->create();
+        $user2 = User::factory(['role_id' => $role2->id, 'name' => 'Staff Name'])->create();
 
         $this->blade("<x-staff-grid />")
-            ->assertSee($user->name);
+            ->assertSee($user2->name);
         /*
         $response = $this->get('/staff');
         $response->assertStatus(200);
