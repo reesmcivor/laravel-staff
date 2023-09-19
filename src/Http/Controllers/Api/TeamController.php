@@ -16,6 +16,7 @@ class TeamController extends Controller
         $team = User::has('profile')->with('profile')->whereIn('role_id', [1,2])->get()->filter(function($item) {
             return $item['profile'] && $item['profile']['show_on_app'] == 1;
         });
+        
         return new TeamCollection($team);
     }
 }

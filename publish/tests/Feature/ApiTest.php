@@ -2,6 +2,7 @@
 
 namespace ReesMcIvor\Staff\Tests\Feature;
 
+use App\Models\Profile;
 use App\Models\Role;
 use App\Models\User;
 use Tests\TestCase;
@@ -20,10 +21,16 @@ class ApiTest extends TestCase
 
         $role2 = Role::factory(['name' => 'Staff'])->create();
         $user2 = User::factory(['role_id' => $role2->id, 'name' => 'Staff Name'])->create();
+        $profile2 = Profile::factory(['user_id' => $user2->id, 'show_on_app' => 1])->create();
+
 
         $this->actingAs($user1);
 
-        $this->get('/api/users/role/staff');
+        $this->get('/api/users/role/staff')->assertJsonStructure([
+            'data' => [[
+                'name'
+            ]]
+        ]);
 
     }
 }
