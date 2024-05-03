@@ -2,6 +2,7 @@
 
 namespace ReesMcIvor\Staff\Models;
 
+use App\Models\Treatment;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -25,5 +26,10 @@ class Staff extends User
                 $query->whereIn('name', ['staff', 'admin']);
             });
         });
+    }
+
+    public function treatments()
+    {
+        return $this->belongsToMany(Treatment::class, 'user_treatments');
     }
 }

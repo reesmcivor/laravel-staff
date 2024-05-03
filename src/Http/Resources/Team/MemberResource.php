@@ -2,6 +2,8 @@
 
 namespace ReesMcIvor\Staff\Http\Resources\Team;
 
+use App\Models\Service;
+use App\Models\ServiceDuration;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Storage;
 
@@ -11,6 +13,11 @@ class MemberResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'treatments' => $this->treatments->map(function($treatment) {
+                return [
+                    'name' => $treatment->name
+                ];
+            }),
             'bookable' => $this->bookable,
             'name' => $this->name,
             'role' => $this->profile->role,

@@ -13,8 +13,11 @@ class TeamController extends Controller
 {
     public function __invoke(Request $request)
     {
-        $team = User::has('profile')->with('profile')->whereIn('role_id', [1,2])->get()->filter(function($item) {
-            return $item['profile'] && $item['profile']['show_on_app'] == 1;
+        $team = User::has('profile')
+            ->with(['profile', 'treatments'])
+            ->whereIn('role_id', [1,2])
+            ->get()->filter(function($item) {
+                return $item['profile'] && $item['profile']['show_on_app'] == 1;
         });
         
         return new TeamCollection($team);
