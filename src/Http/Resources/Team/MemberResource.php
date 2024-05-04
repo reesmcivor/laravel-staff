@@ -13,9 +13,10 @@ class MemberResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'treatments' => $this->treatments->map(function($treatment) {
+            'treatments' => $this->treatments->values()->sortBy('sort_order', SORT_NUMERIC)->map(function($treatment) {
                 return [
-                    'name' => $treatment->name
+                    'name' => $treatment->name,
+                    'sort_order' => $treatment->sort_order
                 ];
             }),
             'bookable' => $this->bookable,

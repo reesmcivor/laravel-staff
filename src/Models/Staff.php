@@ -30,6 +30,7 @@ class Staff extends User
 
     public function treatments()
     {
-        return $this->belongsToMany(Treatment::class, 'user_treatments');
+        return $this->belongsToMany(Treatment::class, 'user_treatments')
+            ->orderby('sort_order');
     }
 }
